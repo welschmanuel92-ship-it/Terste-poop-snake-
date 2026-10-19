@@ -21,15 +21,194 @@
       background-color: #0b0b14;
       color: #fff;
       font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
       min-height: 100vh;
-      padding: 10px;
+      padding: 15px 10px;
       overflow-x: hidden;
     }
 
+    /* Outer 3-Column Layout */
+    .layout-wrapper {
+      width: 100%;
+      max-width: 1380px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 30px;
+    }
+
+    .main-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 440px;
+      flex-shrink: 0;
+    }
+
+    /* Desktop Sidebars for Sticker Wall */
+    .sidebar {
+      display: none; /* Auf Mobilgeräten ausgeblendet */
+      flex-direction: column;
+      gap: 12px;
+      width: 260px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 10px;
+    }
+
+    @media (min-width: 1024px) {
+      .sidebar {
+        display: flex;
+      }
+    }
+
+    /* Brand Header Box */
+    .brand-card {
+      background: rgba(16, 16, 33, 0.95);
+      border: 2px solid rgba(0, 240, 255, 0.4);
+      border-radius: 16px;
+      padding: 12px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+      margin-bottom: 10px;
+    }
+
+    .logos-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 6px;
+    }
+
+    .terste-logo-svg {
+      width: 42px;
+      height: 42px;
+      filter: drop-shadow(0 0 8px rgba(255, 0, 127, 0.6));
+    }
+
+    .twitch-logo-svg {
+      width: 36px;
+      height: 36px;
+      color: #9146FF;
+      filter: drop-shadow(0 0 8px rgba(145, 70, 255, 0.6));
+    }
+
+    .brand-title {
+      font-size: 0.95rem;
+      font-weight: bold;
+      letter-spacing: 1.5px;
+      color: #00f0ff;
+      text-transform: uppercase;
+    }
+
+    /* Sticker Card Design */
+    .sticker-card {
+      position: relative;
+      background: #16162a;
+      border-radius: 16px;
+      border: 3px solid rgba(255, 255, 255, 0.85);
+      overflow: hidden;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7), 0 0 15px rgba(0, 240, 255, 0.2);
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease, z-index 0.3s ease;
+      z-index: 1;
+      margin-bottom: 4px;
+    }
+
+    .sticker-card:hover {
+      transform: scale(1.1) rotate(0deg) !important;
+      z-index: 25;
+      border-color: #00f0ff;
+      box-shadow: 0 15px 35px rgba(0, 240, 255, 0.6);
+    }
+
+    /* Individual Sticker Rotations */
+    .rot-left-1  { transform: rotate(-7deg); }
+    .rot-left-2  { transform: rotate(6deg); }
+    .rot-left-3  { transform: rotate(-10deg); }
+    .rot-left-4  { transform: rotate(5deg); }
+
+    .rot-right-1 { transform: rotate(8deg); }
+    .rot-right-2 { transform: rotate(-9deg); }
+    .rot-right-3 { transform: rotate(7deg); }
+    .rot-right-4 { transform: rotate(-6deg); }
+
+    .img-crop-container {
+      width: 100%;
+      height: 160px;
+      overflow: hidden;
+      position: relative;
+      background: #05050a;
+    }
+
+    .img-crop {
+      position: absolute;
+      pointer-events: none;
+    }
+
+    /* Zooms to hide Overlay Texts */
+    .img-smile {
+      width: 145%;
+      height: 145%;
+      object-fit: cover;
+      object-position: 50% 25%;
+      top: -18%;
+      left: -18%;
+    }
+
+    .img-princess {
+      width: 110%;
+      height: 140%;
+      object-fit: cover;
+      object-position: center top;
+      top: -5%;
+      left: -5%;
+    }
+
+    .img-clown {
+      width: 125%;
+      height: 125%;
+      object-fit: cover;
+      object-position: center 30%;
+      top: -8%;
+      left: -12%;
+    }
+
+    .card-caption {
+      padding: 6px;
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: bold;
+      color: #fff;
+      background: rgba(10, 10, 22, 0.95);
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      letter-spacing: 0.5px;
+    }
+
+    .twitch-link-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #9146FF, #6441a5);
+      color: #fff;
+      text-decoration: none;
+      padding: 12px;
+      border-radius: 14px;
+      font-weight: bold;
+      font-size: 0.9rem;
+      box-shadow: 0 0 15px rgba(145, 70, 255, 0.5);
+      transition: transform 0.2s, box-shadow 0.2s;
+      margin-top: 8px;
+    }
+
+    .twitch-link-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(145, 70, 255, 0.8);
+    }
+
+    /* Main Game UI */
     h1 {
       font-size: 1.8rem;
       margin-bottom: 6px;
@@ -42,7 +221,6 @@
       text-align: center;
     }
 
-    /* Twitch Auth Bar */
     .auth-container {
       margin-bottom: 10px;
       display: flex;
@@ -349,6 +527,7 @@
       color: rgba(255, 255, 255, 0.6);
       font-weight: bold;
       text-shadow: 0 0 8px rgba(0, 240, 255, 0.4);
+      text-align: center;
     }
 
     footer span {
@@ -358,62 +537,154 @@
 </head>
 <body>
 
-  <h1>Terste's Poop Snake</h1>
+  <div class="layout-wrapper">
 
-  <!-- Twitch Auth Box -->
-  <div class="auth-container">
-    <div id="auth-logged-out">
-      <button class="twitch-btn" onclick="loginWithTwitch()">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M11.571 4.714h1.715v5.143H11.571zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/></svg>
-        Mit Twitch Anmelden
-      </button>
-    </div>
-    <div id="auth-logged-in" style="display: none;">
-      <div class="user-profile">
-        <img id="user-avatar-img" class="user-avatar" src="" alt="Avatar">
-        <span id="user-display-name" class="user-name"></span>
-        <button class="logout-btn" onclick="logout()">Abmelden</button>
+    <!-- LINKE STICKER-SIDEBAR -->
+    <aside class="sidebar">
+      <div class="brand-card">
+        <div class="logos-row">
+          <!-- Terste 'T' Logo SVG -->
+          <svg class="terste-logo-svg" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="46" fill="#101021" stroke="#00f0ff" stroke-width="4"/>
+            <path d="M25 28 H75 V40 H58 V78 H42 V40 H25 Z" fill="#ff0055"/>
+            <path d="M25 28 H50 V40 H42 V78 H25 V28 Z" fill="#111122" opacity="0.4"/>
+          </svg>
+          <!-- Twitch Logo SVG -->
+          <svg class="twitch-logo-svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M11.571 4.714h1.715v5.143H11.571zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/>
+          </svg>
+        </div>
+        <div class="brand-title">Terste Stream World</div>
       </div>
-    </div>
+
+      <div class="sticker-card rot-left-1">
+        <div class="img-crop-container">
+          <img src="smile.jpg" alt="Terste Lächeln" class="img-crop img-smile">
+        </div>
+        <div class="card-caption">😊 Stream Vibe</div>
+      </div>
+
+      <div class="sticker-card rot-left-2">
+        <div class="img-crop-container">
+          <img src="princess.jpg" alt="Prinzessin Terste" class="img-crop img-princess">
+        </div>
+        <div class="card-caption">👸 Prinzessin Tersti</div>
+      </div>
+
+      <div class="sticker-card rot-left-3">
+        <div class="img-crop-container">
+          <img src="clown.png" alt="Clown Terste" class="img-crop img-clown">
+        </div>
+        <div class="card-caption">🤡 Clownfiesta!</div>
+      </div>
+
+      <div class="sticker-card rot-left-4">
+        <div class="img-crop-container">
+          <img src="smile.jpg" alt="Terste Live" class="img-crop img-smile">
+        </div>
+        <div class="card-caption">✨ Terste Power</div>
+      </div>
+    </aside>
+
+    <!-- MITTE: HAUPTSPIEL -->
+    <main class="main-content">
+      <h1>Terste's Poop Snake</h1>
+
+      <!-- Twitch Auth Box -->
+      <div class="auth-container">
+        <div id="auth-logged-out">
+          <button class="twitch-btn" onclick="loginWithTwitch()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M11.571 4.714h1.715v5.143H11.571zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/></svg>
+            Mit Twitch Anmelden
+          </button>
+        </div>
+        <div id="auth-logged-in" style="display: none;">
+          <div class="user-profile">
+            <img id="user-avatar-img" class="user-avatar" src="" alt="Avatar">
+            <span id="user-display-name" class="user-name"></span>
+            <button class="logout-btn" onclick="logout()">Abmelden</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="header-scores">
+        <div class="score-box">PUNKTE: <span id="score">0</span></div>
+        <div class="score-box">HIGHSCORE: <span id="highscore">0</span></div>
+      </div>
+
+      <div id="status-bar" class="status-idle">Willkommen! Klicke auf Starten.</div>
+
+      <div class="canvas-container">
+        <canvas id="gameCanvas" width="600" height="600"></canvas>
+        <div id="overlay">
+          <div class="overlay-title" id="overlay-title">TERSTE'S POOP SNAKE</div>
+          <button class="start-btn" id="start-btn" onclick="startGame()">🎮 SPIEL STARTEN</button>
+        </div>
+      </div>
+
+      <div class="toggles">
+        <button class="toggle-btn" id="fog-btn" onclick="toggleFog()">
+          🌬️ NEBELMASCHINE <br><small>(1.5x Speed & Punkte)</small>
+        </button>
+      </div>
+
+      <div class="dpad">
+        <div class="dbtn dbtn-up" onclick="setDir(0, -1)">▲</div>
+        <div class="dbtn dbtn-left" onclick="setDir(-1, 0)">◄</div>
+        <div class="dbtn dbtn-down" onclick="setDir(0, 1)">▼</div>
+        <div class="dbtn dbtn-right" onclick="setDir(1, 0)">►</div>
+      </div>
+
+      <!-- Globale Bestenliste -->
+      <div class="leaderboard-box">
+        <div class="leaderboard-title">🏆 Globale Bestenliste</div>
+        <div id="leaderboard-list" class="leaderboard-list">
+          <div style="text-align: center; color: #777;">Lade Highscores...</div>
+        </div>
+      </div>
+
+      <footer>POWERED BY <span>WELLIOO</span></footer>
+    </main>
+
+    <!-- RECHTE STICKER-SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sticker-card rot-right-1">
+        <div class="img-crop-container">
+          <img src="clown.png" alt="Clown Terste" class="img-crop img-clown">
+        </div>
+        <div class="card-caption">🤡 No Clown No Party</div>
+      </div>
+
+      <div class="sticker-card rot-right-2">
+        <div class="img-crop-container">
+          <img src="princess.jpg" alt="Prinzessin" class="img-crop img-princess">
+        </div>
+        <div class="card-caption">🌸 Wandern mit Terste</div>
+      </div>
+
+      <div class="sticker-card rot-right-3">
+        <div class="img-crop-container">
+          <img src="smile.jpg" alt="Terste Lächeln" class="img-crop img-smile">
+        </div>
+        <div class="card-caption">🎮 Game On!</div>
+      </div>
+
+      <div class="sticker-card rot-right-4">
+        <div class="img-crop-container">
+          <img src="clown.png" alt="Clown Terste" class="img-crop img-clown">
+        </div>
+        <div class="card-caption">🎪 Subathon Mode</div>
+      </div>
+
+      <a href="https://www.twitch.tv/terste" target="_blank" rel="noopener" class="twitch-link-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M11.571 4.714h1.715v5.143H11.571zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/>
+        </svg>
+        <span>Terste auf Twitch</span>
+      </a>
+    </aside>
+
   </div>
-
-  <div class="header-scores">
-    <div class="score-box">PUNKTE: <span id="score">0</span></div>
-    <div class="score-box">HIGHSCORE: <span id="highscore">0</span></div>
-  </div>
-
-  <div id="status-bar" class="status-idle">Willkommen! Klicke auf Starten.</div>
-
-  <div class="canvas-container">
-    <canvas id="gameCanvas" width="600" height="600"></canvas>
-    <div id="overlay">
-      <div class="overlay-title" id="overlay-title">TERSTE'S POOP SNAKE</div>
-      <button class="start-btn" id="start-btn" onclick="startGame()">🎮 SPIEL STARTEN</button>
-    </div>
-  </div>
-
-  <div class="toggles">
-    <button class="toggle-btn" id="fog-btn" onclick="toggleFog()">
-      🌬️ NEBELMASCHINE <br><small>(1.5x Speed & Punkte)</small>
-    </button>
-  </div>
-
-  <div class="dpad">
-    <div class="dbtn dbtn-up" onclick="setDir(0, -1)">▲</div>
-    <div class="dbtn dbtn-left" onclick="setDir(-1, 0)">◄</div>
-    <div class="dbtn dbtn-down" onclick="setDir(0, 1)">▼</div>
-    <div class="dbtn dbtn-right" onclick="setDir(1, 0)">►</div>
-  </div>
-
-  <!-- Globale Bestenliste -->
-  <div class="leaderboard-box">
-    <div class="leaderboard-title">🏆 Globale Bestenliste</div>
-    <div id="leaderboard-list" class="leaderboard-list">
-      <div style="text-align: center; color: #777;">Lade Highscores...</div>
-    </div>
-  </div>
-
-  <footer>POWERED BY <span>WELLIOO</span></footer>
 
   <script>
     // --- SUPABASE CONFIG ---
@@ -423,15 +694,17 @@
 
     let currentUser = null;
 
-    // Auth Status Check beim Laden
-    async function initAuth() {
-      const { data: { user } } = await supabaseClient.auth.getUser();
-      if (user) {
-        currentUser = user;
+    supabaseClient.auth.onAuthStateChange((event, session) => {
+      if (session && session.user) {
+        currentUser = session.user;
         showLoggedInUser();
+      } else {
+        currentUser = null;
+        document.getElementById('auth-logged-out').style.display = 'block';
+        document.getElementById('auth-logged-in').style.display = 'none';
       }
       fetchLeaderboard();
-    }
+    });
 
     function loginWithTwitch() {
       supabaseClient.auth.signInWithOAuth({
@@ -452,7 +725,7 @@
     function showLoggedInUser() {
       if (!currentUser) return;
       const meta = currentUser.user_metadata;
-      const name = meta.custom_claims?.global_name || meta.name || meta.full_name || 'Spieler';
+      const name = meta.custom_claims?.global_name || meta.name || meta.full_name || meta.preferred_username || 'Spieler';
       const avatar = meta.avatar_url || 'https://abs.twimg.com/sticky/default_profile_images/default_profile_normal.png';
 
       document.getElementById('user-display-name').innerText = name;
@@ -462,22 +735,29 @@
       document.getElementById('auth-logged-in').style.display = 'block';
     }
 
-    // Highscore in Supabase speichern
     async function saveHighscoreToSupabase(finalScore) {
-      if (!currentUser || finalScore <= 0) return;
+      if (finalScore <= 0) return;
 
-      const meta = currentUser.user_metadata;
-      const username = meta.custom_claims?.global_name || meta.name || meta.full_name || 'Unbekannt';
-      const avatar_url = meta.avatar_url || '';
+      let username = 'Anonymer Spieler';
+      let avatar_url = '';
 
-      await supabaseClient
+      if (currentUser) {
+        const meta = currentUser.user_metadata;
+        username = meta.custom_claims?.global_name || meta.name || meta.full_name || meta.preferred_username || 'Spieler';
+        avatar_url = meta.avatar_url || '';
+      }
+
+      const { data, error } = await supabaseClient
         .from('highscores')
         .insert([{ username, avatar_url, score: finalScore }]);
 
-      fetchLeaderboard();
+      if (error) {
+        console.error("Fehler beim Speichern:", error);
+      } else {
+        fetchLeaderboard();
+      }
     }
 
-    // Highscores laden & anzeigen
     async function fetchLeaderboard() {
       const { data, error } = await supabaseClient
         .from('highscores')
@@ -486,8 +766,14 @@
         .limit(10);
 
       const listEl = document.getElementById('leaderboard-list');
-      if (error || !data || data.length === 0) {
-        listEl.innerHTML = '<div style="text-align: center; color: #777;">Noch keine Highscores vorhanden!</div>';
+      if (error) {
+        console.error("Fehler beim Laden der Highscores:", error);
+        listEl.innerHTML = '<div style="text-align: center; color: #777;">Fehler beim Laden der Bestenliste</div>';
+        return;
+      }
+
+      if (!data || data.length === 0) {
+        listEl.innerHTML = '<div style="text-align: center; color: #777;">Noch keine Highscores vorhanden! Werde der Erste!</div>';
         return;
       }
 
@@ -504,10 +790,10 @@
     }
 
     function escapeHtml(str) {
-      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      return (str || '').replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
     }
 
-    initAuth();
+    fetchLeaderboard();
 
     // --- GAME ENGINE ---
     const canvas = document.getElementById('gameCanvas');
