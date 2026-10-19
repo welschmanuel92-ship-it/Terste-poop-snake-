@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Terste's Poop Snake</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    body {
+      background-color: #0b0b14;
+      color: #fff;
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 10px;
+      overflow-x: hidden;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      background: linear-gradient(45deg, #ff007f, #00f0ff, #ff007f);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+      text-align: center;
+    }
+
+    .header-scores {
+      display: flex;
+      gap: 15px;
+      font-weight: bold;
+      font-size: 1.05rem;
+      margin-bottom: 8px;
+    }
+
+    .score-box {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 6px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .score-box span {
+      color: #00f0ff;
+    }
+
+    /* Status Bar oberhalb der Arena */
+    #status-bar {
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+      width: 100%;
+      max-width: 420px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+
+    .status-idle {
+      color: #777899;
+      font-style: italic;
+    }
+
+    .status-clown {
+      background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #8b00ff);
+      color: #fff;
+      text-shadow: 0 1px 3px #000;
+      animation: pulse 0.8s infinite alternate;
+    }
+
+    .status-fog {
+      background: rgba(139, 0, 255, 0.4);
+      color: #ff00ff;
+      border: 1px solid #ff00ff;
+      text-shadow: 0 0 8px #ff00ff;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.98); opacity: 0.9; }
+      100% { transform: scale(1.02); opacity: 1; }
+    }
+
+    /* Canvas Arena */
+    .canvas-container {
+      position: relative;
+      width: 100%;
+      max-width: 420px;
+      aspect-ratio: 1 / 1;
+      background: #101021;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 0 25px rgba(0, 240, 255, 0.25), inset 0 0 20px rgba(0, 0, 0, 0.8);
+      border: 2px solid rgba(0, 240, 255, 0.3);
+    }
+
+    canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* Start / Reset Overlay */
+    #overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(10, 10, 22, 0.88);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      backdrop-filter: blur(5px);
+      z-index: 10;
+    }
+
+    .overlay-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #fff;
+      text-shadow: 0 0 10px #00f0ff;
+    }
+
+    .start-btn {
+      background: linear-gradient(135deg, #00f0ff, #8b00ff);
+      color: #fff;
+      border: none;
+      padding: 16px 36px;
+      font-size: 1.3rem;
+      font-weight: bold;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 0 25px rgba(0, 240, 255, 0.6);
+      transition: transform 0.2s, box-shadow 0.2s;
+      animation: btnPulse 1.5s infinite;
+    }
+
+    .start-btn:hover, .start-btn:active {
+      transform: scale(1.08);
+      box-shadow: 0 0 35px rgba(0, 240, 255, 0.9);
+    }
+
+    @keyframes btnPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    /* Toggles */
+    .toggles {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .toggle-btn {
+      flex: 1;
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+
+    .toggle-btn.active {
+      background: linear-gradient(135deg, #ff007f, #8b00ff);
+      border-color: #ff007f;
+      box-shadow: 0 0 15px rgba(255, 0, 127, 0.6);
+    }
+
+    /* Mobile D-Pad */
+    .dpad {
+      display: grid;
+      grid-template-columns: repeat(3, 55px);
+      grid-template-rows: repeat(3, 55px);
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .dbtn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      color: #fff;
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    .dbtn:active {
+      background: #00f0ff;
+      color: #000;
+    }
+
+    .dbtn-up { grid-column: 2; grid-row: 1; }
+    .dbtn-left { grid-column: 1; grid-row: 2; }
+    .dbtn-down { grid-column: 2; grid-row: 3; }
+    .dbtn-right { grid-column: 3; grid-row: 2; }
+
+    /* Footer Branding */
+    footer {
+      margin-top: 15px;
+      font-size: 0.85rem;
+      letter-spacing: 1.5px;
+      color: rgba(255, 255, 255, 0.6);
+      font-weight: bold;
+      text-shadow: 0 0 8px rgba(0, 240, 255, 0.4);
+    }
+
+    footer span {
+      color: #00f0ff;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Terste's Poop Snake</h1>
+
+  <div class="header-scores">
+    <div class="score-box">PUNKTE: <span id="score">0</span></div>
+    <div class="score-box">HIGHSCORE: <span id="highscore">0</span></div>
+  </div>
+
+  <div id="status-bar
